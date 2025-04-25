@@ -1,3 +1,4 @@
 com\example\countrymodel\service\CountryService.class
+com\example\countrymodel\CountryModelApplication.class
 com\example\countrymodel\model\CountryInfo.class
 com\example\countrymodel\controller\CountryController.class
