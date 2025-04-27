@@ -8,4 +8,5 @@ public class CountryInfo {
     private String capital;
     private String region;
     private long population;
+    private String coatOfArms;
 }

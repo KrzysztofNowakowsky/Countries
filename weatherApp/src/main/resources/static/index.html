@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Country Info</title>
+</head>
+
+<body>
+    <h1>Country Information</h1>
+    <form id="countryForm">
+        <label for="countryName">Enter Country Name:</label>
+        <input type="text" id="countryName" name="countryName" required>
+        <button type="submit">Get Info</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('countryForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const countryName = document.getElementById('countryName').value;
+            const response = await fetch(`/api/country/${countryName}`);
+            const data = await response.json();
+
+            const resultDiv = document.getElementById('result');
+            if (data.country) {
+                resultDiv.innerHTML = `
+                    <h2>${data.country.name}</h2>
+                    <p><strong>Capital:</strong> ${data.country.capital}</p>
+                    <p><strong>Region:</strong> ${data.country.region}</p>
+                    <p><strong>Population:</strong> ${data.country.population}</p>
+                    <img src="${data.country.coatOfArms}" alt="Coat of Arms" style="width:200px;">
+                `;
+            } else {
+                resultDiv.innerHTML = `<p>Country not found.</p>`;
+            }
+        });
+    </script>
+</body>
+
+</html>
