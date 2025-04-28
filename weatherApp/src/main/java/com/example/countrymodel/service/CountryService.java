@@ -17,8 +17,16 @@ public class CountryService {
         try {
             Object[] response = restTemplate.getForObject(url, Object[].class);
             if (response != null && response.length > 0 && response[0] instanceof Map) {
+
                 @SuppressWarnings("unchecked")
-                Map<String, Object> countryData = (Map<String, Object>) response[0];
+                Map<String, Object> countryData = null;
+                for (Object i : response) {
+                    countryData = (Map<String, Object>) i;
+                    String name = (String) ((Map<String, Object>) countryData.get("name")).get("common");
+                    if (countryName.toLowerCase() == name.toLowerCase()) {
+                        break;
+                    }
+                }
 
                 String name = (String) ((Map<String, Object>) countryData.get("name")).get("common");
                 List<String> capitals = (List<String>) countryData.get("capital");
