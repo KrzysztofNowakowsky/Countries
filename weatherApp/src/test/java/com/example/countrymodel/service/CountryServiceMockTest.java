@@ -51,4 +51,19 @@ class CountryServiceMockTest {
         assertEquals("Warsaw", result.getCapital());
         assertEquals("Europe", result.getRegion());
     }
+    @Test
+    void getCountry_handlesEmptyApiResponse() {
+        String countryName = "NowhereLand";
+
+        // Simulate empty response from API
+        when(restTemplate.getForObject(
+                "https://restcountries.com/v3.1/name/" + countryName,
+                Object[].class
+        )).thenReturn(new Object[0]);
+
+        // You can decide how your service should respond here (null, exception, etc.)
+        CountryInfo result = countryService.getCountry(countryName);
+
+        assertNull(result, "Expected null when API returns empty array");
+    }
 }
