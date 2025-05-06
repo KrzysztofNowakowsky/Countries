@@ -1,6 +1,7 @@
 package com.example.countrymodel.service;
 
 import com.example.countrymodel.model.CountryInfo;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,7 +12,7 @@ import java.util.Map;
 public class CountryService {
 
     private final RestTemplate restTemplate = new RestTemplate();
-
+    @Cacheable("countries")
     public CountryInfo getCountry(String countryName) {
         String url = "https://restcountries.com/v3.1/name/" + countryName;
         try {
